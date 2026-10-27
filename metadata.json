@@ -2,6 +2,6 @@
   "uuid": "guake-follow-cursor@[placeholder].local",
   "name": "Guake Follow Cursor",
   "description": "Moves the Guake dropdown terminal to whichever monitor the mouse cursor is currently on, when it opens.",
-  "shell-version": ["45", "46", "47", "48"],
+  "shell-version": ["45", "46", "47", "48", "50"],
   "url": ""
 }

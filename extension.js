@@ -1,5 +1,5 @@
-import Meta from 'gi://Meta';
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 export default class GuakeFollowCursorExtension extends Extension {
   enable() {
@@ -28,12 +28,15 @@ export default class GuakeFollowCursorExtension extends Extension {
       return;
     }
 
+    // Get monitor where is cursor
     const [x, y] = global.get_pointer();
-    const rect = new Meta.Rectangle({ x, y, width: 1, height: 1 });
-    const targetMonitor = global.display.get_monitor_index_for_rect(rect); // Get monitor where is cursor
+    const targetMonitor = Main.layoutManager.monitors.findIndex(m =>
+      x >= m.x && x < m.x + m.width &&
+      y >= m.y && y < m.y + m.height
+    );
 
     // Check if Guake was lastly opened at the same location where cursor is currently
-    if (window.get_monitor() !== targetMonitor) {
+    if (targetMonitor >= 0 && window.get_monitor() !== targetMonitor) {
       window.move_to_monitor(targetMonitor);
     }
   }
